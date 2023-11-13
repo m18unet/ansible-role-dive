@@ -1,0 +1,11 @@
+---
+# See available releases: https://github.com/wagoodman/dive/releases
+dive_version: '0.11.0'
+dive_platform: linux
+dive_arch: amd64
+dive_bin_path: /usr/local/bin/dive
+dive_release_url: https://github.com/wagoodman/dive/releases/download/v{{ dive_version }}
+dive_archive_name: dive_{{ dive_version }}_{{ dive_platform }}_{{ dive_arch }}.tar.gz
+dive_checksum_name: dive_{{ dive_version }}_checksums.txt
+dive_download_url: "{{ dive_release_url }}/{{ dive_archive_name }}"
+dive_checksum_url: "{{ dive_release_url }}/{{ dive_checksum_name }}"

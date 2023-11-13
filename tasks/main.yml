@@ -1,0 +1,17 @@
+---
+- name: Check the presence of the dive binary.
+  stat:
+    path: "{{ dive_bin_path }}"
+  register: dive_check
+
+- name: Check the dive version.
+  shell: "{{ dive_bin_path }} version"
+  failed_when: false
+  changed_when: false
+  register: dive_current_version
+
+- name: Install dive v{{ dive_version }}
+  include_tasks: install.yml
+  when: >-
+    not dive_check.stat.exists
+    or dive_version not in dive_current_version.stdout

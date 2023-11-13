@@ -1,0 +1,19 @@
+---
+- name: Verify
+  hosts: all
+  become: false
+  gather_facts: false
+
+  vars_files:
+    - ../../defaults/main.yml
+
+  tasks:
+    - name: Check the dive version.
+      shell: "{{ dive_bin_path }} version"
+      changed_when: false
+      register: dive_verify_version
+
+    - name: Verify dive's version is {{ dive_version }}
+      assert:
+        that:
+          - dive_version in dive_verify_version.stdout

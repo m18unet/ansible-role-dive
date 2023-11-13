@@ -1,0 +1,23 @@
+---
+- name: Download the dive archive.
+  get_url:
+    url: "{{ dive_download_url }}"
+    dest: /tmp
+    checksum: sha256:{{ dive_checksum_url }}
+    mode: 0755
+  register: dive_download
+
+- name: Unarchive the dive archive.
+  unarchive:
+    src: "{{ dive_download.dest }}"
+    dest: /tmp
+    mode: 0755
+    remote_src: true
+
+- name: Copy the dive binary into place.
+  copy:
+    src: /tmp/dive
+    dest: "{{ dive_bin_path }}"
+    mode: 0755
+    remote_src: true
+  become: true
